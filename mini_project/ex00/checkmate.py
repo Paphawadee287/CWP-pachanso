@@ -1,15 +1,14 @@
 def checkmate(board):
-    board = board.splitlines()
-    n = len(board)
-
-    if n == 0:
+    if not isinstance(board, str):
         print("Error")
         return
 
-    for row in board:
-        if len(row) != n:
-            print("Error")
-            return
+    board = board.splitlines()
+    n = len(board)
+
+    if n == 0 or any(len(row) != n for row in board):
+        print("Error")
+        return
 
     king_pos = None
     king_count = 0
@@ -34,7 +33,7 @@ def checkmate(board):
         r, c = kr+dr, kc+dc
         while 0 <= r < n and 0 <= c < n:
             piece = board[r][c]
-            if piece == '.':
+            if piece not in "KPRBQ":
                 r += dr; c += dc 
                 continue
             if piece in ['R','Q']:
@@ -46,7 +45,7 @@ def checkmate(board):
         r, c = kr+dr, kc+dc
         while 0 <= r < n and 0 <= c < n:
             piece = board[r][c]
-            if piece == '.':
+            if piece not in "KPRBQ":
                 r += dr; c += dc
                 continue
             if piece in ['B','Q']:
